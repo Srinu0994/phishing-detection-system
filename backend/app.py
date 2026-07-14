@@ -13,8 +13,13 @@ from feature_extraction import extract_features, normalize_url
 
 app = Flask(__name__)
 backend_dir = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(backend_dir, 'history.db')
 MODEL_PATH = os.path.join(backend_dir, 'model.pkl')
+
+# On serverless hosting like Vercel, filesystem is read-only except for /tmp
+if os.environ.get('VERCEL') or os.environ.get('VERCEL_ENV'):
+    DB_PATH = '/tmp/history.db'
+else:
+    DB_PATH = os.path.join(backend_dir, 'history.db')
 
 # Initialize SQLite database
 def init_db():
@@ -35,6 +40,7 @@ def init_db():
 
 # Helper to connect to DB
 def get_db_connection():
+    init_db()  # Ensure database tables exist
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
