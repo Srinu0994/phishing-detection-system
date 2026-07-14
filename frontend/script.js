@@ -1,5 +1,10 @@
 // API Base Configuration
-const API_BASE = "http://127.0.0.1:5000/api";
+// If you host the backend API separately (e.g., on Render or Heroku), replace the URL below:
+const REMOTE_API_URL = "https://your-deployed-backend-url.onrender.com/api"; 
+
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname === "")
+    ? "http://127.0.0.1:5000/api"
+    : (window.location.origin.includes("github.io") ? REMOTE_API_URL : `${window.location.origin}/api`);
 
 // DOM Elements
 const scanForm = document.getElementById("scan-form");
