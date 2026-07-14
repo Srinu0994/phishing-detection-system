@@ -127,7 +127,7 @@ To view the dashboard, you can simply double-click `frontend/index.html` to open
 # Example using Python's http.server:
 python -m http.server 8000 --directory frontend
 ```
-Then navigate to `http://localhost:8000` in your web browser.
+Then navigate to `https://srnvs-phishing-system.vercel.app/` in your web browser.
 
 ---
 
